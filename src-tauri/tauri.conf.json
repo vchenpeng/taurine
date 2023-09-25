@@ -12,6 +12,9 @@
   "tauri": {
     "allowlist": {
       "all": true,
+      "http": {
+        "scope": ["http://**", "https://**"]
+      },
       "shell": {
         "sidecar": true,
         "scope": [
@@ -41,7 +44,7 @@
       "longDescription": "",
       "macOS": {
         "entitlements": null,
-        "exceptionDomain": "",
+        "exceptionDomain": "localhost",
         "frameworks": [],
         "providerShortName": null,
         "signingIdentity": null

@@ -7,12 +7,19 @@ import { appRouter } from './router';
 
 const server = fastify({
   maxParamLength: 5000,
+  logger: {
+    level: 'info',
+    file: '/Users/chenpeng/Downloads/mylogs.txt'
+  }
 });
 
 server.register(
   cors,
   {
-    origin: ['http://localhost:1420', 'tauri://localhost'],
+    origin: [
+      'http://localhost:1420',
+      'tauri://localhost'
+    ],
   }
 );
 
@@ -23,10 +30,13 @@ server.register(fastifyTRPCPlugin, {
 
 (async () => {
   try {
-    const info = await server.listen({ port: 3000 });
-    console.log(info);
+    const info = await server.listen({ port: 3000 }, (err) => {
+      server.log.error('错误', err);
+    });
+    server.log.error(info);
   } catch (err) {
+    console.log('报错', err)
     server.log.error(err);
-    process.exit(1);
+    // process.exit(1);
   }
 })();

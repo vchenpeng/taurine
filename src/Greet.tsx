@@ -9,9 +9,15 @@ export function Greet() {
   const { mutate } = trpc.useMutation(['greet']);
 
   const greet = () => {
-    mutate({ name }, { onSuccess: (message) => {
-      setGreetMsg(message);
-    }});
+    // alert(window.location.href)
+    mutate({ name }, {
+      onSuccess: (message) => {
+        setGreetMsg(message);
+      },
+      onError: (error) => {
+        alert(error.message)
+      }
+    });
   }
   
   return (
